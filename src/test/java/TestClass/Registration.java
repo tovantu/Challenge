@@ -8,9 +8,23 @@ import org.junit.Test;
 
 public class Registration extends TestBase {
 
+
+    @Test
+    public void checkWhenInputWrongPhoneNumber() {
+        Page.homPage.registerLink().click();
+
+        Page.registerPage.fullName().sendKeys("fullName");
+        Page.registerPage.email().sendKeys(String.format("invalid@mail.com"));
+        Page.registerPage.selectPhoneNumberOption("Thailand (+66)");
+        Page.registerPage.phoneNumber().sendKeys("1234");
+        Page.registerPage.role("Appointed director").click();
+        String phoneError = "Phone number must be at least 11 characters.";
+        Assert.assertEquals("Didn't see error above phone number",phoneError, Page.registerPage.phoneNumbberError().getText(phoneError));
+
+    }
+
     @Test
     public void registrationSucessfullTest() throws InterruptedException {
-        Page.commonPage.spinner().waitForElementDisable();
 
         Page.homPage.registerLink().click();
 
@@ -63,23 +77,7 @@ public class Registration extends TestBase {
         Page.commonPage.buttonSubmit().click();
         Page.identityViewPage.beginVeirfycation().click();
 
-        Assert.assertTrue("Cannot see Identity card",Page.identityViewPage.identityDetails().isDisplayed());
-
-    }
-
-    @Test
-    public void checkWhenInputWrongPhoneNumber() {
-        Page.commonPage.spinner().waitForElementDisable();
-
-        Page.homPage.registerLink().click();
-
-        Page.registerPage.fullName().sendKeys("Full name");
-        Page.registerPage.email().sendKeys(String.format("invalid@mail.com"));
-        Page.registerPage.selectPhoneNumberOption("Thailand (+66)");
-        Page.registerPage.phoneNumber().sendKeys("1234");
-        Page.registerPage.role("Appointed director").click();
-        String phoneError = "Phone number must be at least 11 characters.";
-        Assert.assertEquals("Didn't see error above phone number",phoneError, Page.registerPage.phoneNumbberError().getText(phoneError));
+        Assert.assertTrue("Cannot see Identity card", Page.identityViewPage.identityDetails().isDisplayed());
 
     }
 }

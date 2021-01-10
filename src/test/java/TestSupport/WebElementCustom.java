@@ -12,8 +12,6 @@ import org.openqa.selenium.interactions.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.List;
-
 public class WebElementCustom extends TestBase implements BaseInterface, ClickInterface, InputInterface, TextInterface {
     private int timeOut = 30;
     public By locator = null;
